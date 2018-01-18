@@ -1,5 +1,6 @@
 package com.dupleit.kotlin.htmlre;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -8,6 +9,8 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -17,17 +20,27 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
     TextView testingId;
+    Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         testingId = findViewById(R.id.testingId);
+        button = findViewById(R.id.button);
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
 
         String htmlText = "Goku Is Best <img src=\"https://dw9to29mmj727.cloudfront.net/misc/newsletter-naruto3.png\"> Fighter in dbz universe <img src=\"https://www.cadcorp.com/images/uploads/product-images/cadcorp_developer_200x200.png\">";
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,Base64Activity.class));
+            }
+        });
+
 
         testingId.setText(Html.fromHtml(htmlText, new Html.ImageGetter() {
 
